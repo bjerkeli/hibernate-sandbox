@@ -3,6 +3,8 @@ package com.proteuez.hibernate.domain;
 import org.hamcrest.CoreMatchers;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 import static ch.lambdaj.Lambda.on;
@@ -58,6 +61,24 @@ public class MainOrderTest {
         assertThat(order.getOrderLines().size(), is(2));
         assertThat(project(order.getOrderLines(), String.class, on(UnstructuredOrderLine.class).getOrderDescription()), is(asList("Ny telefon", "4 pilz og en pizza")));
 
+    }
+
+    @Test
+    public void checkStaticTypeFactoryRegistration() {
+        MainOrder order = new MainOrder();
+        final LocalDate storedDate = new LocalDate(2001, 1, 1);
+        order.setDatePlaced(storedDate);
+
+        DateTime storedTime = new DateTime(new Date());
+        order.setTimePlaced(storedTime);
+        sessionFactory.getCurrentSession().save(order);
+        sessionFactory.getCurrentSession().flush();
+        sessionFactory.getCurrentSession().clear();
+
+        order = (MainOrder) sessionFactory.getCurrentSession().get(MainOrder.class, order.getId());
+
+        assertThat(order.getDatePlaced(), is(storedDate));
+        assertThat(order.getTimePlaced(), is(storedTime));
     }
 
     private void update(final int ordinal, final String pattern) {

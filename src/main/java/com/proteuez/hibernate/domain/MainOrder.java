@@ -2,6 +2,9 @@ package com.proteuez.hibernate.domain;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,6 +35,11 @@ public class MainOrder {
     @JoinColumn(name = "main_order", nullable = false, updatable = false, insertable = true)
     private List<OrderLine> orderLines = new LinkedList<OrderLine>();
 
+    //@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate datePlaced;
+
+    private DateTime timePlaced;
+
     public Long getId() {
         return id;
     }
@@ -49,5 +57,22 @@ public class MainOrder {
         orderLine.setMainOrder(this);
         this.orderLines.add(orderLine);
         return this;
+    }
+
+    public LocalDate getDatePlaced() {
+        return datePlaced;
+    }
+
+    public MainOrder setDatePlaced(LocalDate datePlaced) {
+        this.datePlaced = datePlaced;
+        return this;
+    }
+
+    public DateTime getTimePlaced() {
+        return timePlaced;
+    }
+
+    public void setTimePlaced(DateTime timePlaced) {
+        this.timePlaced = timePlaced;
     }
 }
