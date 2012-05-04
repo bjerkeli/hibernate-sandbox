@@ -97,9 +97,9 @@ public class HibernateSandboxTestConfig {
 
     private Properties createHibernateProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.hbm2ddl.auto", "verify");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         properties.put("hibernate.dialect", useOracle ? "org.hibernate.dialect.Oracle10gDialect" : "org.hibernate.dialect.HSQLDialect");
-        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.show_sql", "false");
         properties.put("hibernate.jdbc.batch_size", "1");
         properties.put("hibernate.id.new_generator_mappings", "true");
         return properties;

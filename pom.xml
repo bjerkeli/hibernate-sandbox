@@ -76,6 +76,11 @@
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-collections</artifactId>
+            <version>r03</version>
+        </dependency>
     </dependencies>
 
 

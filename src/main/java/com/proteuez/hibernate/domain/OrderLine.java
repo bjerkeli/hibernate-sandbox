@@ -22,18 +22,24 @@ import javax.persistence.SequenceGenerator;
 public abstract class OrderLine {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ")
-    @SequenceGenerator(name = "SEQ", sequenceName = "order_line_id_sequence", allocationSize = 100)
+    @SequenceGenerator(name = "SEQ", sequenceName = "order_line_id_sequence", allocationSize = 1000)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "main_order", nullable = false, updatable = false, insertable = false)
     private MainOrder mainOrder;
 
+
     public MainOrder getMainOrder() {
         return mainOrder;
     }
 
-    public void setMainOrder(MainOrder mainOrder) {
+    public OrderLine setMainOrder(MainOrder mainOrder) {
         this.mainOrder = mainOrder;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
