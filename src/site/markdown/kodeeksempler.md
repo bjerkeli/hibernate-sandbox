@@ -1,6 +1,6 @@
 # Kodeeksempler
 
-<pre class="prettyprint lang-java">
+<pre class="prettyprint lang-java linenums">
     if (test) {
      //Dette er en kommentar
      Runnable r = new Runnable() {
